@@ -1,3 +1,38 @@
 body {
     background-color: rgba(0, 0, 0, 0.746);
 }
+
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+.calculator {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    border: 1px solid white;
+    padding: 15px;
+    width: 220px;
+}
+
+.screen {
+    width: 200px;
+    border: 1px solid white;
+
+    text-align: center;
+    font-size: 30px;
+    color: white;
+}
+
+button {
+    height: 35px;
+    width: 35px;
+    font-size: 25px;
+}
+
+.buttons {
+    margin-top: 80px;
+    margin-bottom: 50px;
+}
