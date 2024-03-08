@@ -35,14 +35,21 @@ function operate(str = '') {
             result = multiply(result, operand);
             break;
         case '/':
-            result = divide(result, operand);
-            break;
+            if (operand === 0) {
+                return "Can't do that";
+              }
+              result = divide(result, operand);
+              break;
         default:
-            throw new Error("Nieznany operator: " + operator);
+            throw new Error("Unknown operator: " + operator);
         }
     }
 
-    return result;
+    result = result.toFixed(11);
+
+    result = result.replace(/0+$/, "");
+
+    return Number(result);
 }
 
 const buttons = document.querySelector('.buttons');
