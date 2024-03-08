@@ -35,6 +35,13 @@ button {
 }
 
 .buttons {
-    margin-top: 80px;
-    margin-bottom: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    margin: 50px 0 50px 0;
+}
+
+.operators {
+    margin-bottom: 20px;
 }

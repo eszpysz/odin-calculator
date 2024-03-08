@@ -5,19 +5,28 @@ function add(a, b) {
 }
 
 function subtract(a, b) {
-    return a - b;
+    numberA = Number(a);
+    numberB = Number(b);
+    return numberA - numberB;
 }
 
 function multiply(a, b) {
-    return a * b;
+    numberA = Number(a);
+    numberB = Number(b);
+    return numberA * numberB;
 }
 
 function divide(a, b) {
-    return a / b;
+    numberA = Number(a);
+    numberB = Number(b);
+    if (numberB == 0) {
+        return "Can't do that";
+    }
+    return numberA / numberB;
 }
 
 function operate(str = '') {
-    const tokens = str.split(/([+-\/\*])/);
+    const tokens = str.split(/([+\-*/])/);
 
     let result = Number(tokens[0]);
     for (let i = 1; i < tokens.length; i += 2) {
@@ -35,11 +44,8 @@ function operate(str = '') {
             result = multiply(result, operand);
             break;
         case '/':
-            if (operand === 0) {
-                return "Can't do that";
-              }
-              result = divide(result, operand);
-              break;
+            result = divide(result, operand);
+            break;
         default:
             throw new Error("Unknown operator: " + operator);
         }
@@ -52,9 +58,13 @@ function operate(str = '') {
     return Number(result);
 }
 
+
 const buttons = document.querySelector('.buttons');
 const displayValue = document.querySelector('.screen');
 displayValue.textContent = '';
+
+const commaButton = document.querySelector('.comma');
+commaButton.disabled = false;
 
 const maxScreenLength = 12;
 let operationValue = '';
@@ -106,6 +116,18 @@ buttons.addEventListener('click', e => {
                 operationValue += `${target.textContent}`;
                 displayValue.textContent = target.textContent;
                 equalSwitch = true;
+            }
+        }
+        commaButton.disabled = displayValue.textContent.includes('.');
+
+    }
+
+    if (target.className === 'comma') {
+        if (displayValue.textContent.length < maxScreenLength) {
+            if (displayValue.textContent !== '' && operationValue[operationValue.length-1] !== ' ') {
+                operationValue += target.textContent;
+                displayValue.textContent += target.textContent;
+                commaButton.disabled = true;
             }
         }
     }
