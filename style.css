@@ -45,3 +45,9 @@ button {
 .operators {
     margin-bottom: 20px;
 }
+
+.operators .other {
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 10px;
+}

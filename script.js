@@ -122,6 +122,11 @@ buttons.addEventListener('click', e => {
 
     }
 
+    if (target.className === 'backspace') {
+        operationValue = operationValue.slice(0, -1);
+        displayValue.textContent = displayValue.textContent.slice(0, -1);
+    }
+
     if (target.className === 'comma') {
         if (displayValue.textContent.length < maxScreenLength) {
             if (displayValue.textContent !== '' && operationValue[operationValue.length-1] !== ' ') {
@@ -130,5 +135,23 @@ buttons.addEventListener('click', e => {
                 commaButton.disabled = true;
             }
         }
+    }
+});
+
+window.addEventListener('keydown', e => {
+    const key = e.key;
+
+    if ((key >= '0' && key <= '9') || key === '+' || key === '-' || key === '*' || key === '/') {
+        operationValue += key;
+        displayValue.textContent += key;
+    } else if (key === 'Enter') {
+        displayValue.textContent = operate(operationValue);
+        operationValue = '';
+    } else if (key === 'Backspace') {
+        operationValue = operationValue.slice(0, -1);
+        displayValue.textContent = displayValue.textContent.slice(0, -1);
+    } else if (key === 'Escape') {
+        operationValue = '';
+        displayValue.textContent = '';
     }
 });
