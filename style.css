@@ -18,10 +18,12 @@ body {
 }
 
 .screen {
+    height: 35px;
     width: 200px;
     border: 1px solid white;
 
     text-align: center;
+    word-wrap: break-word;
     font-size: 30px;
     color: white;
 }
