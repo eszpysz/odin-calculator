@@ -43,7 +43,7 @@ function operate (str = '') {
     if (Number.isInteger(result)) {
         return result;
       } else {
-        return result.toFixed(11);
+        return result.toFixed(11).toString().replace(/0+$/, '');
       }
 }
 
