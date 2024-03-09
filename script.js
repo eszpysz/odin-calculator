@@ -13,8 +13,8 @@ function multiply (a, b) {
 }
 
 function divide (a, b) {
-    if (b === 0) {
-        return 'ERROR';
+    if (b == 0) {
+        return 'Can\'t do that';
     } else {
         return a / b;
     }
@@ -39,7 +39,7 @@ function operate (str = '') {
         operationList.splice(0, 3)
         operationList.unshift(result)
     }
-    return result;
+    return result.toFixed(11).replace(/0+$/, '');
 }
 
 const maxNumberLength = 11;
