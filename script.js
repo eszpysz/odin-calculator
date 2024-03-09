@@ -1,5 +1,7 @@
 function add (a, b) {
-    return a + b;
+    let numberA = Number(a);
+    let numberB = Number(b);
+    return numberA + numberB;
 }
 
 function subtract (a, b) {
@@ -11,31 +13,65 @@ function multiply (a, b) {
 }
 
 function divide (a, b) {
-    return a / b;
-}
-
-let firstNumber = 0;
-    secondNumber = 0;
-    operator = '';
-
-function operate (firstNumber, operator, secondNumber) {
-    if (operator === '+') {
-        return add(firstNumber, secondNumber);
-    } else if (operator === '-') {
-        return subtract(firstNumber, secondNumber);
-    } else if (operator === '*') {
-        return multiply(firstNumber, secondNumber);
-    } else if (operator === '/') {
-        return divide(firstNumber, secondNumber);
+    if (b === 0) {
+        return 'ERROR';
+    } else {
+        return a / b;
     }
 }
 
+function operate (str = '') {
+    let operationList = str.split(' ');
+
+    let result = 0;
+
+    while(operationList.length !== 1) {
+        if (operationList[1] === '+') {
+            result = add(operationList[0], operationList[2]);
+        } else if (operationList[1] === '-') {
+            result = subtract(operationList[0], operationList[2]);
+        } else if (operationList[1] === '*') {
+            result = multiply(operationList[0], operationList[2]);
+        } else if (operationList[1] === '/') {
+            result = divide(operationList[0], operationList[2]);
+        }
+
+        operationList.splice(0, 3)
+        operationList.unshift(result)
+    }
+    return result;
+}
+
+const maxNumberLength = 11;
+
 const buttons = document.querySelector('.buttons');
 const display = document.querySelector('.screen');
+
+let operation = '';
 
 buttons.addEventListener('click', e => {
     let target = e.target;
     let displayValue = display.textContent;
 
-    
-})
+    if (target.className === 'clear') {
+        display.textContent = '';
+        operation = '';
+    }
+
+    if (target.className === 'number') {
+        if (displayValue.length <= maxNumberLength) {
+            operation += target.textContent;
+            display.textContent += target.textContent;
+        }
+    }
+
+    if (target.className === 'operator') {
+        operation += ` ${target.textContent} `
+        display.textContent = '';
+    }
+
+    if (target.className === 'equal') {
+        display.textContent = operate(operation);
+        operation = '';
+    }
+});
