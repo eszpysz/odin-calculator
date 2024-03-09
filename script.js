@@ -64,12 +64,14 @@ buttons.addEventListener('click', e => {
     }
 
     if (target.className === 'number') {
-        if (operation === '') {
-            display.textContent = '';
-        }
-        if (displayValue.length <= maxNumberLength) {
-            operation += target.textContent;
-            display.textContent += target.textContent;
+        if (display.textContent != '0') {
+            if (operation === '') {
+                display.textContent = '';
+            }
+            if (displayValue.length <= maxNumberLength) {
+                operation += target.textContent;
+                display.textContent += target.textContent;
+            }
         }
     }
 
