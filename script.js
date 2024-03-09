@@ -64,6 +64,9 @@ buttons.addEventListener('click', e => {
     }
 
     if (target.className === 'number') {
+        if (operation === '') {
+            display.textContent = '';
+        }
         if (displayValue.length <= maxNumberLength) {
             operation += target.textContent;
             display.textContent += target.textContent;
