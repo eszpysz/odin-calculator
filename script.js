@@ -76,7 +76,10 @@ buttons.addEventListener('click', e => {
     }
 
     if (target.className === 'operator') {
-        operation += ` ${target.textContent} `
+        if (display.textContent !== '' && operation === '') {
+            operation += `${display.textContent} ${target.textContent} `
+        }
+        operation += ` ${target.textContent} `;
         display.textContent = '';
     }
 
