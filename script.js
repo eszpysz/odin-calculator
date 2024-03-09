@@ -39,7 +39,12 @@ function operate (str = '') {
         operationList.splice(0, 3)
         operationList.unshift(result)
     }
-    return result.toFixed(11).replace(/0+$/, '');
+
+    if (Number.isInteger(result)) {
+        return result;
+      } else {
+        return result.toFixed(11);
+      }
 }
 
 const maxNumberLength = 11;
@@ -71,7 +76,9 @@ buttons.addEventListener('click', e => {
     }
 
     if (target.className === 'equal') {
-        display.textContent = operate(operation);
-        operation = '';
+        if (operation[operation.length-1] !== ' ') {
+            display.textContent = operate(operation);
+            operation = '';
+        }
     }
 });
