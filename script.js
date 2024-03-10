@@ -40,6 +40,8 @@ function operate (str = '') {
         operationList.unshift(result)
     }
 
+    console.log(result)
+
     if (Number.isInteger(result)) {
         return result;
       } else {
@@ -53,6 +55,7 @@ const buttons = document.querySelector('.buttons');
 const display = document.querySelector('.screen');
 
 let operation = '';
+let modifiedOperation = '';
 
 buttons.addEventListener('click', e => {
     let target = e.target;
@@ -84,8 +87,22 @@ buttons.addEventListener('click', e => {
     }
 
     if (target.className === 'equal') {
-        if (operation[operation.length-1] !== ' ') {
+        if (display.textContent !== '' && operation === '') {
+            let lastResult = display.textContent;
+            let operationsList = modifiedOperation.split(' ');
+
+            let lastOperator = operationsList[operationsList.length - 2];
+            let lastNumber = operationsList[operationsList.length - 1];
+
+            let operationString = `${lastResult} ${lastOperator} ${lastNumber}`;
+
+            console.log(operationString)
+
+            display.textContent = operate(operationString);
+        }
+        if (operation[operation.length-1] !== ' ' && operation !== '') {
             display.textContent = operate(operation);
+            modifiedOperation = operation;
             operation = '';
         }
     }
