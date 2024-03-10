@@ -152,36 +152,37 @@ window.addEventListener('keydown', e => {
     let key = e.key;
     
     switch(key) {
+
         // Keys 0-9
         case '0':
-            numberKey(key, '0');
+            numberKey('0');
             break;
         case '1':
-            numberKey(key, '1');
+            numberKey('1');
             break;
         case '2':
-            numberKey(key, '2');
+            numberKey('2');
             break;
         case '3':
-            numberKey(key, '3');
+            numberKey('3');
             break;
         case '4':
-            numberKey(key, '4');
+            numberKey('4');
             break;
         case '5':
-            numberKey(key, '5');
+            numberKey('5');
             break;
         case '6':
-            numberKey(key, '6');
+            numberKey('6');
             break;
         case '7':
-            numberKey(key, '7');
+            numberKey('7');
             break;
         case '8':
-            numberKey(key, '8');
+            numberKey('8');
             break;
         case '9':
-            numberKey(key, '9');
+            numberKey('9');
             break;
 
         // Operators
@@ -197,6 +198,21 @@ window.addEventListener('keydown', e => {
         case '/':
             operatorKey('/');
             break;
+
+        // Main Keys
+        case 'Enter':
+            equal();
+            break;
+        case 'c':
+        case 'C':
+            clear();
+            break;
+        case 'Backspace':
+            backspace();
+            break;
+        case '.':
+            comma();
+            break;
     }
 });
 
@@ -208,15 +224,14 @@ function operatorKey(operator) {
     display.textContent = '';
 }
 
-function numberKey(key, number) {
-    if (key === number) {
+function numberKey(number) {
+    if (display.textContent != '0') {
+        if (operation === '') {
+            display.textContent = '';
+        }
         if (display.textContent.length <= maxNumberLength) {
-            if (modifiedOperation === '' || operation.includes(' ')) {
-                if (display.textContent != '0') {
-                    operation += number;
-                    display.textContent += number;
-                }
-            }
+            operation += number;
+            display.textContent += number;
         }
     }
 }
