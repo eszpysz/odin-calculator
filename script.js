@@ -152,6 +152,7 @@ window.addEventListener('keydown', e => {
     let key = e.key;
     
     switch(key) {
+        // Keys 0-9
         case '0':
             numberKey(key, '0');
             break;
@@ -182,8 +183,30 @@ window.addEventListener('keydown', e => {
         case '9':
             numberKey(key, '9');
             break;
+
+        // Operators
+        case '+':
+            operatorKey('+');
+            break;
+        case '-':
+            operatorKey('-');
+            break;
+        case '*':
+            operatorKey('*');
+            break;
+        case '/':
+            operatorKey('/');
+            break;
     }
 });
+
+function operatorKey(operator) {
+    if (display.textContent !== '' && operation === '') {
+        operation += `${display.textContent}`
+    }
+    operation += ` ${operator} `;
+    display.textContent = '';
+}
 
 function numberKey(key, number) {
     if (key === number) {
