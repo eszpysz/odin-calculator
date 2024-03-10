@@ -210,6 +210,7 @@ window.addEventListener('keydown', e => {
         case 'Backspace':
             backspace();
             break;
+        case ',':
         case '.':
             comma();
             break;
