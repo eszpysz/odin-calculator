@@ -40,8 +40,6 @@ function operate (str = '') {
         operationList.unshift(result)
     }
 
-    console.log(result)
-
     if (Number.isInteger(result)) {
         return result;
       } else {
@@ -95,8 +93,6 @@ buttons.addEventListener('click', e => {
             let lastNumber = operationsList[operationsList.length - 1];
 
             let operationString = `${lastResult} ${lastOperator} ${lastNumber}`;
-
-            console.log(operationString)
 
             display.textContent = operate(operationString);
         }
