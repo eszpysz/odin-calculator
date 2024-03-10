@@ -64,6 +64,15 @@ buttons.addEventListener('click', e => {
         operation = '';
     }
 
+    if (target.className === 'backspace') {
+        if (display.textContent !== '' && operation !== '') {
+            if (operation[operation.length-1] !== ' ') {
+                display.textContent = display.textContent.slice(0, -1);
+                operation = operation.slice(0, -1);
+            }
+        }
+    }
+
     if (target.className === 'number') {
         if (display.textContent != '0') {
             if (operation === '') {
