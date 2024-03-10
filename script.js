@@ -57,7 +57,6 @@ let modifiedOperation = '';
 
 buttons.addEventListener('click', e => {
     let target = e.target;
-    let displayValue = display.textContent;
 
     if (target.className === 'clear') {
         display.textContent = '';
@@ -78,7 +77,7 @@ buttons.addEventListener('click', e => {
             if (operation === '') {
                 display.textContent = '';
             }
-            if (displayValue.length <= maxNumberLength) {
+            if (display.textContent.length <= maxNumberLength) {
                 operation += target.textContent;
                 display.textContent += target.textContent;
             }
@@ -100,7 +99,7 @@ buttons.addEventListener('click', e => {
 
     if (target.className === 'operator') {
         if (display.textContent !== '' && operation === '') {
-            operation += `${display.textContent} ${target.textContent} `
+            operation += `${display.textContent}`
         }
         operation += ` ${target.textContent} `;
         display.textContent = '';
@@ -125,3 +124,53 @@ buttons.addEventListener('click', e => {
         }
     }
 });
+
+window.addEventListener('keydown', e => {
+    let key = e.key;
+    
+    switch(key) {
+        case '0':
+            numberKey(key, '0');
+            break;
+        case '1':
+            numberKey(key, '1');
+            break;
+        case '2':
+            numberKey(key, '2');
+            break;
+        case '3':
+            numberKey(key, '3');
+            break;
+        case '4':
+            numberKey(key, '4');
+            break;
+        case '5':
+            numberKey(key, '5');
+            break;
+        case '6':
+            numberKey(key, '6');
+            break;
+        case '7':
+            numberKey(key, '7');
+            break;
+        case '8':
+            numberKey(key, '8');
+            break;
+        case '9':
+            numberKey(key, '9');
+            break;
+    }
+});
+
+function numberKey(key, number) {
+    if (key === number) {
+        if (display.textContent.length <= maxNumberLength) {
+            if (modifiedOperation === '' || operation.includes(' ')) {
+                if (display.textContent != '0') {
+                    operation += number;
+                    display.textContent += number;
+                }
+            }
+        }
+    }
+}
