@@ -42,6 +42,8 @@ function operate (str = '') {
 
     if (Number.isInteger(result)) {
         return result;
+      } else if (typeof result === 'string') {
+        return result;
       } else {
         return result.toFixed(11).toString().replace(/0+$/, '');
       }
@@ -58,72 +60,93 @@ let modifiedOperation = '';
 buttons.addEventListener('click', e => {
     let target = e.target;
 
-    if (target.className === 'clear') {
-        display.textContent = '';
-        operation = '';
+    switch(target.className) {
+        case 'clear':
+            clear();
+            break;
+        case 'backspace':
+            backspace();
+            break;
+        case 'number':
+            number(target);
+            break;
+        case 'comma':
+            comma();
+            break;
+        case 'operator':
+            operator(target);
+            break;
+        case 'equal':
+            equal();
+            break;
     }
+});
 
-    if (target.className === 'backspace') {
-        if (display.textContent !== '' && operation !== '') {
-            if (operation[operation.length-1] !== ' ') {
-                display.textContent = display.textContent.slice(0, -1);
-                operation = operation.slice(0, -1);
-            }
+function clear() {
+    display.textContent = '';
+    operation = '';
+}
+
+function backspace() {
+    if (display.textContent !== '' && operation !== '') {
+        if (operation[operation.length-1] !== ' ') {
+            display.textContent = display.textContent.slice(0, -1);
+            operation = operation.slice(0, -1);
         }
     }
+}
 
-    if (target.className === 'number') {
-        if (display.textContent != '0') {
-            if (operation === '') {
-                display.textContent = '';
-            }
-            if (display.textContent.length <= maxNumberLength) {
-                operation += target.textContent;
-                display.textContent += target.textContent;
-            }
+function number(target) {
+    if (display.textContent != '0') {
+        if (operation === '') {
+            display.textContent = '';
+        }
+        if (display.textContent.length <= maxNumberLength) {
+            operation += target.textContent;
+            display.textContent += target.textContent;
         }
     }
+}
 
-    if (target.className === 'comma') {
-        if (display.textContent !== '') {
-            if (!display.textContent.includes('.')) {
-                if (operation !== '') {
-                    if (operation[operation.length-1] !== ' ') {
-                        operation += '.';
-                        display.textContent += '.';
-                    }
+function comma() {
+    if (display.textContent !== '') {
+        if (!display.textContent.includes('.')) {
+            if (operation !== '') {
+                if (operation[operation.length-1] !== ' ') {
+                    operation += '.';
+                    display.textContent += '.';
                 }
             }
         }
     }
+}
 
-    if (target.className === 'operator') {
-        if (display.textContent !== '' && operation === '') {
-            operation += `${display.textContent}`
-        }
-        operation += ` ${target.textContent} `;
-        display.textContent = '';
+function operator(target) {
+    if (display.textContent !== '' && operation === '') {
+        operation += `${display.textContent}`
     }
+    operation += ` ${target.textContent} `;
+    display.textContent = '';
+}
 
-    if (target.className === 'equal') {
-        if (display.textContent !== '' && operation === '') {
-            let lastResult = display.textContent;
-            let operationsList = modifiedOperation.split(' ');
+function equal() {
+    if (display.textContent !== '' && operation === '') {
+        let lastResult = display.textContent;
+        let operationsList = modifiedOperation.split(' ');
 
-            let lastOperator = operationsList[operationsList.length - 2];
-            let lastNumber = operationsList[operationsList.length - 1];
+        let lastOperator = operationsList[operationsList.length - 2];
+        let lastNumber = operationsList[operationsList.length - 1];
 
-            let operationString = `${lastResult} ${lastOperator} ${lastNumber}`;
+        let operationString = `${lastResult} ${lastOperator} ${lastNumber}`;
 
-            display.textContent = operate(operationString);
-        }
-        if (operation[operation.length-1] !== ' ' && operation !== '') {
-            display.textContent = operate(operation);
-            modifiedOperation = operation;
-            operation = '';
-        }
+        display.textContent = operate(operationString);
     }
-});
+    if (operation[operation.length-1] !== ' ' && operation !== '') {
+        display.textContent = operate(operation);
+        modifiedOperation = operation;
+        operation = '';
+    }
+}
 
 window.addEventListener('keydown', e => {
     let key = e.key;
