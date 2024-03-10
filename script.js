@@ -76,6 +76,19 @@ buttons.addEventListener('click', e => {
         }
     }
 
+    if (target.className === 'comma') {
+        if (display.textContent !== '') {
+            if (!display.textContent.includes('.')) {
+                if (operation !== '') {
+                    if (operation[operation.length-1] !== ' ') {
+                        operation += '.';
+                        display.textContent += '.';
+                    }
+                }
+            }
+        }
+    }
+
     if (target.className === 'operator') {
         if (display.textContent !== '' && operation === '') {
             operation += `${display.textContent} ${target.textContent} `
